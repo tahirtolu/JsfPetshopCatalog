@@ -8,6 +8,6 @@ package controller;
  *
  * @author Yavuz Selim
  */
-public class NotepadBean {
+public class BaseBean {
     
 }
