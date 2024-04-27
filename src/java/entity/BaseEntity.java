@@ -8,6 +8,6 @@ package entity;
  *
  * @author Yavuz Selim
  */
-public class Notepad {
+public class BaseEntity {
     
 }
