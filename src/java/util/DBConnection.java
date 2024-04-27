@@ -19,7 +19,7 @@ public abstract class DBConnection {
         if (this.connect == null) {
             try {
                 Class.forName("org.postgresql.Driver");
-                this.connect = DriverManager.getConnection("jdbc:postgresqll://localhost:5432/petshop", "postgres", "Ys/.539374");
+                this.connect = DriverManager.getConnection("jdbc:postgresql://localhost:5432/petshop", "postgres", "Ys/.539374");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
