@@ -8,6 +8,9 @@
             <web-module-libraries>
                 <library dirs="200">
 
+                    <file>${libs.PostgreSQLDriver.classpath}</file>
+
+
                     <file>${file.reference.postgresql-42.7.3.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -15,6 +18,7 @@
                     <file>${libs.PostgreSQLDriver.classpath}</file>
 
                     <file>${file.reference.postgresql-42.7.2.jar}</file>
+
 
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>

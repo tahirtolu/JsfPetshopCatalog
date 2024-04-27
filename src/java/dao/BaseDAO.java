@@ -8,6 +8,6 @@ package dao;
  *
  * @author Yavuz Selim
  */
-public class NotepadDAO {
+public class BaseDAO {
     
 }
