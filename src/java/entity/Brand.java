@@ -10,11 +10,11 @@ package entity;
  */
 public class Brand {
     private long id;
-    private String markaİsmi;
+    private String markaIsmi;
 
-    public Brand(long id, String markaİsmi) {
+    public Brand(long id, String markaIsmi) {
         this.id = id;
-        this.markaİsmi = markaİsmi;
+        this.markaIsmi = markaIsmi;
     }
 
     public Brand() {
@@ -28,12 +28,12 @@ public class Brand {
         this.id = id;
     }
 
-    public String getMarkaİsmi() {
-        return markaİsmi;
+    public String getMarkaIsmi() {
+        return markaIsmi;
     }
 
-    public void setMarkaİsmi(String markaİsmi) {
-        this.markaİsmi = markaİsmi;
+    public void setMarkaIsmi(String markaIsmi) {
+        this.markaIsmi = markaIsmi;
     }
     
 }

@@ -8,6 +8,10 @@ package entity;
 public class Customer {
     private long id ;
     private String isim ;
+    private String soyisim;
+    private int telefon ;
+    private String email ; 
+    private String adress;
 
     public void setId(long id) {
         this.id = id;
@@ -56,10 +60,7 @@ public class Customer {
     public String getAdress() {
         return adress;
     }
-    private String soyisim;
-    private int telefon ;
-    private String email ; 
-    private String adress;
+   
     public Customer() {
     }
 
