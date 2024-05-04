@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Hayvanlar</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Hayvan Adı:" />
+            <h:inputText value="#{hayvanController.hayvanAdi}" />
+
+            <h:outputLabel value="Hayvan Türü:" />
+            <h:inputText value="#{hayvanController.hayvanTuru}" />
+
+            <h:outputLabel value="Hayvan Yaşı:" />
+            <h:inputText value="#{hayvanController.hayvanYasi}" />
+
+            <h:outputLabel value="Hayvan Cinsi:" />
+            <h:inputText value="#{hayvanController.hayvanCinsi}" />
+
+            <h:commandButton value="Ekle" action="#{hayvanController.ekle}" />
+        </h:panelGrid>
+        <h:messages />
+    </h:form>
+
+    <h:dataTable value="#{hayvanController.hayvanlar}" var="hayvan">
+        <h:column>
+            <f:facet name="header">Hayvan Adı</f:facet>
+            <h:outputText value="#{hayvan.hayvanAdi}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">Hayvan Türü</f:facet>
+            <h:outputText value="#{hayvan.hayvanTuru}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">Hayvan Yaşı</f:facet>
+            <h:outputText value="#{hayvan.hayvanYasi}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">Hayvan Cinsi</f:facet>
+            <h:outputText value="#{hayvan.hayvanCinsi}" />
+        </h:column>
+    </h:dataTable>
+</h:body>
+</html>
