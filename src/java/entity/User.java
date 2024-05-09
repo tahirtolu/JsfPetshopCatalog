@@ -13,6 +13,8 @@ public class User {
     private String isim ;
     private String soyisim ;
     private String sifre ;
+    private String eposta;
+    private String kullaniciAdi;
 
     public void setId(long id) {
         this.id = id;
@@ -46,11 +48,13 @@ public class User {
         return sifre;
     }
 
-    public User(long id, String isim, String soyisim, String sifre) {
+    public User(long id, String isim, String soyisim, String sifre, String eposta, String kullaniciAdi) {
         this.id = id;
         this.isim = isim;
         this.soyisim = soyisim;
         this.sifre = sifre;
+        this.kullaniciAdi = kullaniciAdi;
+        this.eposta = eposta;
     }
 
     public User() {

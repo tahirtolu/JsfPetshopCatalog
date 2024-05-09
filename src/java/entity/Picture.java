@@ -10,18 +10,18 @@ package entity;
  */
 public class Picture {
     private long id;
-    private String resimAdi;
-    private String resimTipi;
-    private String resimURL;
+    private String ad;
+    private String resimTuru;
+    private String resimYolu;
 
-    public Picture() {
+    public Picture(long id, String ad, String resimTuru, String resimYolu) {
+        this.id = id;
+        this.ad = ad;
+        this.resimTuru = resimTuru;
+        this.resimYolu = resimYolu;
     }
 
-    public Picture(long id, String resimAdi, String resimTipi, String resimURL) {
-        this.id = id;
-        this.resimAdi = resimAdi;
-        this.resimTipi = resimTipi;
-        this.resimURL = resimURL;
+    public Picture() {
     }
 
     public long getId() {
@@ -32,28 +32,31 @@ public class Picture {
         this.id = id;
     }
 
-    public String getResimAdi() {
-        return resimAdi;
+    public String getAd() {
+        return ad;
     }
 
-    public void setResimAdi(String resimAdi) {
-        this.resimAdi = resimAdi;
+    public void setAd(String ad) {
+        this.ad = ad;
     }
 
-    public String getResimTipi() {
-        return resimTipi;
+    public String getResimTuru() {
+        return resimTuru;
     }
 
-    public void setResimTipi(String resimTipi) {
-        this.resimTipi = resimTipi;
+    public void setResimTuru(String resimTuru) {
+        this.resimTuru = resimTuru;
     }
 
-    public String getResimURL() {
-        return resimURL;
+    public String getResimYolu() {
+        return resimYolu;
     }
 
-    public void setResimURL(String resimURL) {
-        this.resimURL = resimURL;
+    public void setResimYolu(String resimYolu) {
+        this.resimYolu = resimYolu;
     }
+    
+
+    
     
 }

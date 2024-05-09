@@ -9,23 +9,34 @@ package entity;
  * @author Muhsin21
  */
 public class Animal {
+
     private long id;
     private String hayvanTuru;
     private String hayvanCinsi;
     private String hayvanIrki;
     private String cinsiyet;
     private int kilo;
+    private int yas;
 
     public Animal() {
     }
 
-    public Animal(long id, String hayvanTuru, String hayvanCinsi, String hayvanIrki, String cinsiyet, int kilo) {
+    public Animal(long id, String hayvanTuru, String hayvanCinsi, String hayvanIrki, String cinsiyet, int kilo, int yas) {
         this.id = id;
         this.hayvanTuru = hayvanTuru;
         this.hayvanCinsi = hayvanCinsi;
         this.hayvanIrki = hayvanIrki;
         this.cinsiyet = cinsiyet;
         this.kilo = kilo;
+        this.yas = yas;
+    }
+
+    public int getYas() {
+        return yas;
+    }
+
+    public void setYas(int yas) {
+        this.yas = yas;
     }
 
     public long getId() {
@@ -75,7 +86,5 @@ public class Animal {
     public void setKilo(int kilo) {
         this.kilo = kilo;
     }
-    
-    
-    
+
 }

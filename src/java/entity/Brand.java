@@ -9,12 +9,14 @@ package entity;
  * @author tolut
  */
 public class Brand {
+
     private long id;
     private String markaIsmi;
 
     public Brand(long id, String markaIsmi) {
         this.id = id;
         this.markaIsmi = markaIsmi;
+
     }
 
     public Brand() {
@@ -35,5 +37,5 @@ public class Brand {
     public void setMarkaIsmi(String markaIsmi) {
         this.markaIsmi = markaIsmi;
     }
-    
+
 }
