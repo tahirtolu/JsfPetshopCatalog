@@ -19,18 +19,8 @@ public class Product implements Serializable {
     private Category kategori;
     private String marka;
     private int stok;
-
-    public Product() {
-    }
-
-    public Product(long id, String isim, int fiyat, Category kategori, String marka, int stok) {
-        this.id = id;
-        this.isim = isim;
-        this.fiyat = fiyat;
-        this.kategori = kategori;
-        this.marka = marka;
-        this.stok = stok;
-    }
+    private String aciklama;
+    private String image;
 
     public long getId() {
         return id;
@@ -79,5 +69,37 @@ public class Product implements Serializable {
     public void setStok(int stok) {
         this.stok = stok;
     }
+
+    public String getAciklama() {
+        return aciklama;
+    }
+
+    public void setAciklama(String aciklama) {
+        this.aciklama = aciklama;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Product() {
+    }
+
+    public Product(long id, String isim, int fiyat, Category kategori, String marka, int stok, String aciklama, String image) {
+        this.id = id;
+        this.isim = isim;
+        this.fiyat = fiyat;
+        this.kategori = kategori;
+        this.marka = marka;
+        this.stok = stok;
+        this.aciklama = aciklama;
+        this.image = image;
+    }
+
+    
 
 }

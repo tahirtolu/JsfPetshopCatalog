@@ -13,19 +13,10 @@ import java.util.Date;
 public class Order {
     private long id;
     private Date tarih;
-    private String müşteri_ismi;
+    private String musteriIsmi;
     private int miktar;
-    private double fiyat;
-    private double toplam_tutar;
-
-    public Order(long id, Date tarih, String müşteri_ismi, int miktar, double fiyat, double toplam_tutar) {
-        this.id = id;
-        this.tarih = tarih;
-        this.müşteri_ismi = müşteri_ismi;
-        this.miktar = miktar;
-        this.fiyat = fiyat;
-        this.toplam_tutar = toplam_tutar;
-    }
+    private float fiyat;
+    private float toplamTutar;
 
     public long getId() {
         return id;
@@ -43,12 +34,12 @@ public class Order {
         this.tarih = tarih;
     }
 
-    public String getMüşteri_ismi() {
-        return müşteri_ismi;
+    public String getMusteriIsmi() {
+        return musteriIsmi;
     }
 
-    public void setMüşteri_ismi(String müşteri_ismi) {
-        this.müşteri_ismi = müşteri_ismi;
+    public void setMusteriIsmi(String musteriIsmi) {
+        this.musteriIsmi = musteriIsmi;
     }
 
     public int getMiktar() {
@@ -59,24 +50,38 @@ public class Order {
         this.miktar = miktar;
     }
 
-    public double getFiyat() {
+    public float getFiyat() {
         return fiyat;
     }
 
-    public void setFiyat(double fiyat) {
+    public void setFiyat(float fiyat) {
         this.fiyat = fiyat;
     }
 
-    public double getToplam_tutar() {
-        return toplam_tutar;
+    public float getToplamTutar() {
+        return toplamTutar;
     }
 
-    public void setToplam_tutar(double toplam_tutar) {
-        this.toplam_tutar = toplam_tutar;
+    public void setToplamTutar(float toplamTutar) {
+        this.toplamTutar = toplamTutar;
+    }
+
+    public Order(long id, Date tarih, String musteriIsmi, int miktar, float fiyat, float toplamTutar) {
+        this.id = id;
+        this.tarih = tarih;
+        this.musteriIsmi = musteriIsmi;
+        this.miktar = miktar;
+        this.fiyat = fiyat;
+        this.toplamTutar = toplamTutar;
     }
 
     public Order() {
     }
+    
+    
+  
+
+    
             
     
 }

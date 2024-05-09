@@ -23,7 +23,7 @@ public class BrandDAO extends DBConnection{
             Statement st = this.getConnect().createStatement();
             ResultSet rs = st.executeQuery("select * from brand");
             while(rs.next()){
-                list.add(new Brand(rs.getLong("id"), rs.getString("markaIsmi")));
+                list.add(new Brand(rs.getLong("id"), rs.getString("logoResmi")));
             }
         } catch (Exception e ){
             System.out.println(e.getMessage());
