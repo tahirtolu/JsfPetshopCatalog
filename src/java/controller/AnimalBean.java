@@ -3,85 +3,79 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controller;
-/**
- *
- * @author Muhsin21
- */
+
 import dao.AnimalDAO;
 import entity.Animal;
-import entity.Brand;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-@Named(value = "AnimalBean")
+/**
+ *
+ * @author Yavuz Selim
+ */
+@Named(value= "AnimalBean")
 @SessionScoped
-public class AnimalBean implements Serializable{
+public class AnimalBean implements Serializable {
 
-    private Animal animal = new Animal();
-    private AnimalDAO animalDao = new AnimalDAO();
     private Animal entity;
-    
-    
-    
-    
-    
-    public List<Animal> getAnimals() {
-        return animalDao.readList();
+    private AnimalDAO dao;
+    private List<Animal> List;
+
+    public AnimalBean() {
+
     }
 
-    public AnimalDAO getAnimalDao() {
-         if(this.animalDao == null){
-            this.animalDao = new AnimalDAO();
-        }
-        
-        
-        return animalDao;
-        
-       
+    public void create() {
+        this.getDao().create(entity);
+        this.entity = new Animal();
     }
 
-    public void setAnimalDao(AnimalDAO animalDao) {
-        this.animalDao = animalDao;
+    public void update() {
+        this.getDao().update(entity);
+        this.entity = new Animal();
+    }
+
+    public void delete() {
+        this.getDao().delete(entity);
+        this.entity = new Animal();
     }
 
     public Animal getEntity() {
+
         if (this.entity == null) {
             this.entity = new Animal();
         }
         return entity;
     }
 
+    public AnimalDAO getDao() {
+
+        if (this.dao == null) {
+            this.dao = new AnimalDAO();
+
+        }
+
+        return dao;
+    }
+
+    public List<Animal> getList() {
+
+        this.List = this.getDao().readList();
+
+        return List;
+    }
+
     public void setEntity(Animal entity) {
         this.entity = entity;
     }
-    
-    
 
-    public String create() {
-        animalDao.create(animal);
-        animal = new Animal(); // Formu sıfırla
-        return "animalList"; // Listeleme sayfasına yönlendir
+    public void setDao(AnimalDAO dao) {
+        this.dao = dao;
     }
 
-    public String update() {
-        animalDao.update(animal);
-        return "animalList"; // Listeleme sayfasına yönlendir
+    public void setList(List<Animal> List) {
+        this.List = List;
     }
-
-    public String delete() {
-        animalDao.delete(animal);
-        return "animalList"; // Listeleme sayfasına yönlendir
-    }
-
-    // Getter ve Setter metodları
-    public Animal getAnimal() {
-        return animal;
-    }
-
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
-    }
-
 }

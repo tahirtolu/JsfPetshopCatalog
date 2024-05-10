@@ -15,7 +15,7 @@ public class Animal {
     private String hayvanCinsi;
     private String hayvanIrki;
     private String cinsiyet;
-    private int kilo;
+    private float kilo;
     private int yas;
 
     public Animal() {
@@ -79,11 +79,11 @@ public class Animal {
         this.cinsiyet = cinsiyet;
     }
 
-    public int getKilo() {
+    public float getKilo() {
         return kilo;
     }
 
-    public void setKilo(int kilo) {
+    public void setKilo(float kilo) {
         this.kilo = kilo;
     }
 

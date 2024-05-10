@@ -34,7 +34,7 @@ public class AnimalDAO extends DBConnection {
             pst.setString(2, a.getHayvanIrki());
             pst.setString(3, a.getHayvanCinsi());
             pst.setString(4, a.getCinsiyet());
-            pst.setInt(5, a.getKilo());
+            pst.setFloat(5, a.getKilo());
             pst.setInt(6, a.getYas());
             pst.executeUpdate();
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class AnimalDAO extends DBConnection {
             pst.setString(2, a.getHayvanIrki());
             pst.setString(3, a.getHayvanCinsi());
             pst.setString(4, a.getCinsiyet());
-            pst.setInt(5, a.getKilo());
+            pst.setFloat(5, a.getKilo());
             pst.setInt(6, a.getYas());
             pst.setLong(7, a.getId());
             pst.executeUpdate();
