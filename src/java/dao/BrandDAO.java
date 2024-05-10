@@ -23,7 +23,7 @@ public class BrandDAO extends DBConnection{
             Statement st = this.getConnect().createStatement();
             ResultSet rs = st.executeQuery("select * from brand");
             while(rs.next()){
-                list.add(new Brand(rs.getLong("id"), rs.getString("logoResmi")));
+                list.add(new Brand(rs.getLong("id"), rs.getString("markaIsmi")));
             }
         } catch (Exception e ){
             System.out.println(e.getMessage());
@@ -37,7 +37,24 @@ public class BrandDAO extends DBConnection{
             } catch (Exception e){
                 System.out.println(e.getMessage());
             }
+    } 
+    public void update(Brand b){
+        try{
+            Statement st = this.getConnect().createStatement();
+            st.executeUpdate("update brand set markaIsmi='"+b.getMarkaIsmi()+"' where id="+b.getId());
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+            }
     }
+     public void delete(Brand b){
+        try{
+            Statement st = this.getConnect().createStatement();
+            st.executeUpdate("delete from brand where id=" +b.getId());
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+    }
+         
          
     
 }

@@ -1,47 +1,111 @@
-<!DOCTYPE html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-    <title>Hayvanlar</title>
-</h:head>
-<h:body>
-    <h:form>
-        <h:panelGrid columns="2">
-            <h:outputLabel value="Hayvan Adı:" />
-            <h:inputText value="#{hayvanController.hayvanAdi}" />
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-            <h:outputLabel value="Hayvan Türü:" />
-            <h:inputText value="#{hayvanController.hayvanTuru}" />
 
-            <h:outputLabel value="Hayvan Yaşı:" />
-            <h:inputText value="#{hayvanController.hayvanYasi}" />
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <div class="container">
+            <div class="col">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                HAYVAN TURU
+                            </th>
+                            <th>
+                                HAYVAN CINSI
+                            </th>
+                            <th>
+                                HAYVAN IRKI
+                            </th>
+                            <th>
+                                CINSIYET
+                            </th>
+                            <th>
+                                KILO
+                            </th>
+                            <th>
+                                YAS
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <h:form>
+                        <ui:repeat value="#{AnimalBean.getAnimals()}" var="a">
+                            <tr>
+                                
+                                <td>#{a.getId()}</td>
+                                <td>
+                                    <h:commandLink action="#{AnimalBean.setEntity(a)}" value="#{a.hayvanTuru}" />
+                                </td>
+                                 <td>
+                                    <h:commandLink action="#{AnimalBean.setEntity(a)}" value="#{a.hayvanCinsi}" />
+                                </td>
+                                 <td>
+                                    <h:commandLink action="#{AnimalBean.setEntity(a)}" value="#{a.hayvanIrki}" />
+                                </td>
+                                 <td>
+                                    <h:commandLink action="#{AnimalBean.setEntity(a)}" value="#{a.cinsiyet}" />
+                                </td>
+                                 <td>
+                                    <h:commandLink action="#{AnimalBean.setEntity(a)}" value="#{a.kilo}" />
+                                </td>
+                                 <td>
+                                    <h:commandLink action="#{AnimalBean.setEntity(a)}" value="#{a.yas}" />
+                                </td>
+                                <td>#{a.hayvanTuru}</td>
+                                <td>#{a.hayvanCinsi}</td>
+                                <td>#{a.hayvanIrki}</td>
+                                <td>#{a.cinsiyet}</td>
+                                <td>#{a.kilo}</td>
+                                <td>#{a.yas}</td>
+                                 
+                                
+                               
 
-            <h:outputLabel value="Hayvan Cinsi:" />
-            <h:inputText value="#{hayvanController.hayvanCinsi}" />
+                                
+                                
+                            </tr>
+                            
+                        </ui:repeat>
+                            </h:form>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <h:form>
+                    <div class="mb-3">
+                        <label>Title</label>
+                        <h:inputText value="#{AnimalBean.entity.hayvanTuru}" styleClass="form-control" />
+                        <h:inputText value="#{AnimalBean.entity.hayvanCinsi}" styleClass="form-control" />
+                        <h:inputText value="#{AnimalBean.entity.hayvanIrki}" styleClass="form-control" />
+                        <h:inputText value="#{AnimalBean.entity.cinsiyet}" styleClass="form-control" />
+                        <h:inputText value="#{AnimalBean.entity.kilo}" styleClass="form-control" />
+                        <h:inputText value="#{AnimalBean.entity.yas}" styleClass="form-control" />
 
-            <h:commandButton value="Ekle" action="#{hayvanController.ekle}" />
-        </h:panelGrid>
-        <h:messages />
-    </h:form>
 
-    <h:dataTable value="#{hayvanController.hayvanlar}" var="hayvan">
-        <h:column>
-            <f:facet name="header">Hayvan Adı</f:facet>
-            <h:outputText value="#{hayvan.hayvanAdi}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Hayvan Türü</f:facet>
-            <h:outputText value="#{hayvan.hayvanTuru}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Hayvan Yaşı</f:facet>
-            <h:outputText value="#{hayvan.hayvanYasi}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Hayvan Cinsi</f:facet>
-            <h:outputText value="#{hayvan.hayvanCinsi}" />
-        </h:column>
-    </h:dataTable>
-</h:body>
+                       
+                    </div>
+                    <div class="mb-3">
+                        <h:commandButton styleClass="btn btn-primary" remdered="#{AnimalBean.entity.id==null}" action="#{AnimalBean.create}" value="Create" />
+                        <h:commandButton styleClass="btn btn-danger" remdered="#{AnimalBean.entity.id!=null}" action="#{AnimalBean.delete}" value="Delete"/>
+                        <h:commandButton styleClass="btn btn-success" remdered="#{AnimalBean.entity.id!=null}" action="#{AnimalBean.update}" value="Update"/>
+
+                    </div>
+                </h:form>
+            </div>
+        </div>
+        
+        
+    </h:body>
 </html>

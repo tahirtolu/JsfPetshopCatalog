@@ -25,14 +25,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        <h:form>
                         <ui:repeat value="#{BrandBean.list}" var="e">
                             <tr>
-                                <td>#{e.id}</td>
+                                
+                                <td>#{e.getId()}</td>
+                                <td>
+                                    <h:commandLink action="#{BrandBean.setEntity(e)}" value="#{e.markaIsmi}" />
+                                </td>
                                 <td>#{e.markaIsmi}</td>
+                                
+                               
+
+                                
+                                
                             </tr>
                             
                         </ui:repeat>
+                            </h:form>
                     </tbody>
                 </table>
             </div>
@@ -45,7 +55,10 @@
                        
                     </div>
                     <div class="mb-3">
-                        <h:commandButton styleClass="btn btn-primary" remdered="#{BrandBean.entity.id==null}" action="#{BrandBean.create}" />
+                        <h:commandButton styleClass="btn btn-primary" remdered="#{BrandBean.entity.id==null}" action="#{BrandBean.create}" value="Create" />
+                        <h:commandButton styleClass="btn btn-danger" remdered="#{BrandBean.entity.id!=null}" action="#{BrandBean.delete}" value="Delete"/>
+                        <h:commandButton styleClass="btn btn-success" remdered="#{BrandBean.entity.id!=null}" action="#{BrandBean.update}" value="Update"/>
+
                     </div>
                 </h:form>
             </div>

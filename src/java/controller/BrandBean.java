@@ -10,46 +10,60 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+
 /**
  *
  * @author Yavuz Selim
  */
-@Named(value = "BrandBean")
+@Named(value= "BrandBean")
 @SessionScoped
 public class BrandBean implements Serializable {
+
     private Brand entity;
     private BrandDAO dao;
     private List<Brand> List;
-    
-    public void create(){
-       this.getDao().create(entity);
-       this.entity =new Brand();
+
+    public BrandBean() {
+
+    }
+
+    public void create() {
+        this.getDao().create(entity);
+        this.entity = new Brand();
+    }
+
+    public void update() {
+        this.getDao().update(entity);
+        this.entity = new Brand();
+    }
+
+    public void delete() {
+        this.getDao().delete(entity);
+        this.entity = new Brand();
     }
 
     public Brand getEntity() {
-        
-        if (this.entity == null){
+
+        if (this.entity == null) {
             this.entity = new Brand();
         }
-        
         return entity;
     }
 
     public BrandDAO getDao() {
-        
-        if( this.dao == null){
+
+        if (this.dao == null) {
             this.dao = new BrandDAO();
-                    
-                    
+
         }
-        
+
         return dao;
     }
 
     public List<Brand> getList() {
-        
-        this.List =this.getDao().readList();
-        
+
+        this.List = this.getDao().readList();
+
         return List;
     }
 
@@ -64,6 +78,4 @@ public class BrandBean implements Serializable {
     public void setList(List<Brand> List) {
         this.List = List;
     }
-    
-    
 }
