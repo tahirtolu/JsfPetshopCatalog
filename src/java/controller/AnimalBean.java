@@ -22,6 +22,9 @@ public class AnimalBean implements Serializable {
     private Animal entity;
     private AnimalDAO dao;
     private List<Animal> List;
+    
+    private int page=1;
+    private int pageCount=0;
 
     public AnimalBean() {
 
@@ -62,11 +65,22 @@ public class AnimalBean implements Serializable {
 
     public List<Animal> getList() {
 
-        this.List = this.getDao().readList();
+        this.List = this.getDao().readList(page);
 
         return List;
     }
-
+    public void prev(){
+        page--;
+        if(page <1){
+        page=this.getPageCount();
+        }
+    }
+    public void next(){
+        page++;
+        if(page > this.getPageCount()){
+        page=1;
+        }
+    }
     public void setEntity(Animal entity) {
         this.entity = entity;
     }
@@ -78,4 +92,26 @@ public class AnimalBean implements Serializable {
     public void setList(List<Animal> List) {
         this.List = List;
     }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageCount() {
+        List<Animal> alist=this.getDao().readList(page);
+        int size = alist.size();
+        pageCount =(int) Math.ceil(size/10);
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+    
+    
+    
 }

@@ -13,9 +13,10 @@ import util.DBConnection;
 
 public class AnimalDAO extends DBConnection {
 
-    public List<Animal> readList() {
+    public List<Animal> readList(int page) {
+        int offset = (page-1)*10;
         List<Animal> list = new ArrayList<>();
-        String query = "SELECT * FROM animal";
+        String query = "SELECT * FROM animal limit 10 offset 1" +offset ;
         try (PreparedStatement pst = this.getConnect().prepareStatement(query);
              ResultSet rs = pst.executeQuery()) {
             while (rs.next()) {
