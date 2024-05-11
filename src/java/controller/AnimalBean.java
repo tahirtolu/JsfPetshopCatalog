@@ -25,7 +25,6 @@ public class AnimalBean implements Serializable {
     
     private int page=1;
     private int pageCount=0;
-
     public AnimalBean() {
 
     }
@@ -71,12 +70,12 @@ public class AnimalBean implements Serializable {
     }
     public void prev(){
         page--;
-        if(page <1){
+        if(page < 1){
         page=this.getPageCount();
         }
     }
     public void next(){
-        page++;
+        page++;        
         if(page > this.getPageCount()){
         page=1;
         }
@@ -102,9 +101,9 @@ public class AnimalBean implements Serializable {
     }
 
     public int getPageCount() {
-        List<Animal> alist=this.getDao().readList(page);
+        List<Animal> alist=this.getDao().readList();
         int size = alist.size();
-        pageCount =(int) Math.ceil(size/10);
+        pageCount =(int) Math.ceil(size/10)+1;
         return pageCount;
     }
 

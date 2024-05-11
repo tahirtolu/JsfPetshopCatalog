@@ -21,20 +21,32 @@
                                 ID
                             </th>
                             <th>
-                                MARKA ISMI
+                                Ürün ISMI
+                            </th>
+                            <th>
+                                Marka ISMI
+                            </th>
+                            <th>
+                                Kategori ISMI
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <h:form>
-                        <ui:repeat value="#{BrandBean.list}" var="e">
+                        <ui:repeat value="#{ProductBean.list}" var="e">
                             <tr>
                                 
                                 <td>#{e.getId()}</td>
                                 <td>
-                                    <h:commandLink action="#{BrandBean.setEntity(e)}" value="#{e.markaIsmi}" />
+                                    <h:commandLink action="#{ProductBean.setEntity(e)}" value="#{e.isim}" />
                                 </td>
-                                <td>#{e.markaIsmi}</td>
+                                <td>
+                                    <h:commandLink action="#{ProductBean.setEntity(e)}" value="#{e.marka}" />
+                                </td>
+                                <td>
+                                    <h:commandLink action="#{ProductBean.setEntity(e)}" value="#{e.kategori}" />
+                                </td>
+                                <td>#{e.isim}</td>
                                 
                                
 
@@ -51,14 +63,17 @@
                 <h:form>
                     <div class="mb-3">
                         <label>Title</label>
-                        <h:inputText value="#{BrandBean.entity.markaIsmi}" styleClass="form-control" />
+                         <h:inputText value="#{ProductBean.entity.isim}" styleClass="form-control" />
+                         <h:inputText value="#{ProductBean.entity.marka}" styleClass="form-control" />
+                         <h:inputText value="#{ProductBean.entity.kategori}" styleClass="form-control" />
+
 
                        
                     </div>
                     <div class="mb-3">
-                        <h:commandButton styleClass="btn btn-primary" remdered="#{BrandBean.entity.id==null}" action="#{BrandBean.create}" value="Create" />
-                        <h:commandButton styleClass="btn btn-danger" remdered="#{BrandBean.entity.id!=null}" action="#{BrandBean.delete}" value="Delete"/>
-                        <h:commandButton styleClass="btn btn-success" remdered="#{BrandBean.entity.id!=null}" action="#{BrandBean.update}" value="Update"/>
+                        <h:commandButton styleClass="btn btn-primary" remdered="#{ProductBean.entity.id==null}" action="#{ProductBean.create}" value="Create" />
+                        <h:commandButton styleClass="btn btn-danger" remdered="#{ProductBean.entity.id!=null}" action="#{ProductBean.delete}" value="Delete"/>
+                        <h:commandButton styleClass="btn btn-success" remdered="#{ProductBean.entity.id!=null}" action="#{ProductBean.update}" value="Update"/>
 
                     </div>
                 </h:form>

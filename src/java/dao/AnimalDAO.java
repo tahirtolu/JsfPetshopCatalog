@@ -16,7 +16,21 @@ public class AnimalDAO extends DBConnection {
     public List<Animal> readList(int page) {
         int offset = (page-1)*10;
         List<Animal> list = new ArrayList<>();
-        String query = "SELECT * FROM animal limit 10 offset 1" +offset ;
+        String query = "SELECT * FROM animal limit 10 offset 0" +offset ;
+        try (PreparedStatement pst = this.getConnect().prepareStatement(query);
+             ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                list.add(new Animal(rs.getLong("id"), rs.getString("hayvanTuru"), rs.getString("hayvanCinsi"), rs.getString("hayvanIrki"), rs.getString("cinsiyet"), rs.getInt("kilo"), rs.getInt("yas")));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+    public List<Animal> readList() {
+        
+        List<Animal> list = new ArrayList<>();
+        String query = "SELECT * FROM animal " ;
         try (PreparedStatement pst = this.getConnect().prepareStatement(query);
              ResultSet rs = pst.executeQuery()) {
             while (rs.next()) {

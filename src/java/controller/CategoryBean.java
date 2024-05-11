@@ -4,8 +4,8 @@
  */
 package controller;
 
-import dao.BrandDAO;
-import entity.Brand;
+import dao.CategoryDAO;
+import entity.Category;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
@@ -15,67 +15,67 @@ import java.util.List;
  *
  * @author Yavuz Selim
  */
-@Named(value= "BrandBean")
+@Named(value= "CategoryBean")
 @SessionScoped
-public class BrandBean implements Serializable {
+public class CategoryBean implements Serializable {
 
-    private Brand entity;
-    private BrandDAO dao;
-    private List<Brand> List;
+    private Category entity;
+    private CategoryDAO dao;
+    private List<Category> List;
 
-    public BrandBean() {
+    public CategoryBean() {
 
     }
 
     public void create() {
         this.getDao().create(entity);
-        this.entity = new Brand();
+        this.entity = new Category();
     }
 
     public void update() {
         this.getDao().update(entity);
-        this.entity = new Brand();
+        this.entity = new Category();
     }
 
     public void delete() {
         this.getDao().delete(entity);
-        this.entity = new Brand();
+        this.entity = new Category();
     }
 
-    public Brand getEntity() {
+    public Category getEntity() {
 
         if (this.entity == null) {
-            this.entity = new Brand();
+            this.entity = new Category();
         }
         return entity;
     }
 
-    public BrandDAO getDao() {
+    public CategoryDAO getDao() {
 
         if (this.dao == null) {
-            this.dao = new BrandDAO();
+            this.dao = new CategoryDAO();
 
         }
 
         return dao;
     }
 
-    public List<Brand> getList() {
+    public List<Category> getList() {
 
         this.List = this.getDao().readList();
 
         return List;
     }
 
-    public void setEntity(Brand entity) {
+    public void setEntity(Category entity) {
         this.entity = entity;
     }
 
-    public void setDao(BrandDAO dao) {
+    public void setDao(CategoryDAO dao) {
         this.dao = dao;
     }
 
-    public void setList(List<Brand> List) {
+    public void setList(List<Category> List) {
         this.List = List;
     }
 }

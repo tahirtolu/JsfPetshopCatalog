@@ -4,7 +4,7 @@
  */
 package dao;
 
-import entity.Brand;
+import entity.Category;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -15,41 +15,41 @@ import util.DBConnection;
  *
  * @author Yavuz Selim
  */
-public class BrandDAO extends DBConnection{
+public class CategoryDAO extends DBConnection{
     
-    public List<Brand> readList(){
-        List<Brand> list = new ArrayList <>();
+    public List<Category> readList(){
+        List<Category> list = new ArrayList <>();
         try{
             Statement st = this.getConnect().createStatement();
-            ResultSet rs = st.executeQuery("select * from brand");
+            ResultSet rs = st.executeQuery("select * from category");
             while(rs.next()){
-                list.add(new Brand(rs.getLong("id"), rs.getString("markaIsmi")));
+                list.add(new Category(rs.getLong("id"), rs.getString("kategoriIsmi")));
             }
         } catch (Exception e ){
             System.out.println(e.getMessage());
         }
         return list;
     }
-    public void create(Brand b){
+    public void create(Category b){
         try{
             Statement st = this.getConnect().createStatement();
-            st.executeUpdate("insert into brand(markaIsmi) values ('" + b.getMarkaIsmi() + " ' )");
+            st.executeUpdate("insert into category(kategoriIsmi) values ('" + b.getKategoriIsmi() + " ' )");
             } catch (Exception e){
                 System.out.println(e.getMessage());
             }
     } 
-    public void update(Brand b){
+    public void update(Category b){
         try{
             Statement st = this.getConnect().createStatement();
-            st.executeUpdate("update brand set markaIsmi='"+b.getMarkaIsmi()+"' where id="+b.getId());
+            st.executeUpdate("update category set kategoriIsmi='"+b.getKategoriIsmi()+"' where id="+b.getId());
             } catch (Exception e){
                 System.out.println(e.getMessage());
             }
     }
-     public void delete(Brand b){
+     public void delete(Category b){
         try{
             Statement st = this.getConnect().createStatement();
-            st.executeUpdate("delete from brand where id=" +b.getId());
+            st.executeUpdate("delete from category where id=" +b.getId());
             } catch (Exception e){
                 System.out.println(e.getMessage());
             }

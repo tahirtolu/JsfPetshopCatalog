@@ -5,7 +5,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Locale.Category;
 
 /**
  *
@@ -15,13 +14,22 @@ public class Product implements Serializable {
 
     private long id;
     private String isim;
-    private int fiyat;
-    private Category kategori;
+    private String kategori;
     private String marka;
-    private int stok;
-    private String aciklama;
-    private String image;
 
+    public Product() {
+    }
+
+    public Product(long id, String isim, String kategori, String marka) {
+        this.id = id;
+        this.isim = isim;
+        this.kategori = kategori;
+        this.marka = marka;
+    }
+
+    
+    
+    
     public long getId() {
         return id;
     }
@@ -38,19 +46,11 @@ public class Product implements Serializable {
         this.isim = isim;
     }
 
-    public int getFiyat() {
-        return fiyat;
-    }
-
-    public void setFiyat(int fiyat) {
-        this.fiyat = fiyat;
-    }
-
-    public Category getKategori() {
+    public String getKategori() {
         return kategori;
     }
 
-    public void setKategori(Category kategori) {
+    public void setKategori(String kategori) {
         this.kategori = kategori;
     }
 
@@ -61,45 +61,6 @@ public class Product implements Serializable {
     public void setMarka(String marka) {
         this.marka = marka;
     }
-
-    public int getStok() {
-        return stok;
-    }
-
-    public void setStok(int stok) {
-        this.stok = stok;
-    }
-
-    public String getAciklama() {
-        return aciklama;
-    }
-
-    public void setAciklama(String aciklama) {
-        this.aciklama = aciklama;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Product() {
-    }
-
-    public Product(long id, String isim, int fiyat, Category kategori, String marka, int stok, String aciklama, String image) {
-        this.id = id;
-        this.isim = isim;
-        this.fiyat = fiyat;
-        this.kategori = kategori;
-        this.marka = marka;
-        this.stok = stok;
-        this.aciklama = aciklama;
-        this.image = image;
-    }
-
     
 
 }
