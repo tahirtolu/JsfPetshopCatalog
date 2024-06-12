@@ -6,6 +6,7 @@ package controller;
 
 import dao.CategoryDAO;
 import entity.Category;
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ import java.util.List;
 public class CategoryBean implements Serializable {
 
     private Category entity;
+    @EJB
     private CategoryDAO dao;
     private List<Category> List;
 
@@ -28,17 +30,17 @@ public class CategoryBean implements Serializable {
     }
 
     public void create() {
-        this.getDao().create(entity);
+        dao.create(entity);
         this.entity = new Category();
     }
 
     public void update() {
-        this.getDao().update(entity);
+        dao.update(entity);
         this.entity = new Category();
     }
 
     public void delete() {
-        this.getDao().delete(entity);
+        dao.delete(entity);
         this.entity = new Category();
     }
 
@@ -50,19 +52,10 @@ public class CategoryBean implements Serializable {
         return entity;
     }
 
-    public CategoryDAO getDao() {
-
-        if (this.dao == null) {
-            this.dao = new CategoryDAO();
-
-        }
-
-        return dao;
-    }
 
     public List<Category> getList() {
 
-        this.List = this.getDao().readList();
+       dao.findAll();
 
         return List;
     }
@@ -71,9 +64,7 @@ public class CategoryBean implements Serializable {
         this.entity = entity;
     }
 
-    public void setDao(CategoryDAO dao) {
-        this.dao = dao;
-    }
+   
 
     public void setList(List<Category> List) {
         this.List = List;

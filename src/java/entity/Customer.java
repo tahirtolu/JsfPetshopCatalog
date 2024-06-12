@@ -4,12 +4,33 @@
  */
 package entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import java.io.Serializable;
 
-public class Customer {
-    private long id ;
-    private String isim ;
-    private String soyisim;
-    private String email ; 
+@Entity
+public class Customer implements Serializable{
+public static final long serialVersionUID = 1L;
+@Id
+@GeneratedValue (strategy = GenerationType.IDENTITY)
+@Column (unique = true , nullable =false)
+
+private long id;
+
+private String username;
+private String password;
+
+    public Customer() {
+    }
+
+    public Customer(long id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
 
     public long getId() {
         return id;
@@ -19,39 +40,49 @@ public class Customer {
         this.id = id;
     }
 
-    public String getIsim() {
-        return isim;
+    public String getUsername() {
+        return username;
     }
 
-    public void setIsim(String isim) {
-        this.isim = isim;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getSoyisim() {
-        return soyisim;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSoyisim(String soyisim) {
-        this.soyisim = soyisim;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Customer other = (Customer) obj;
+        return this.id == other.id;
     }
 
-    public Customer() {
+    @Override
+    public String toString() {
+        return "Customer{" + "id=" + id + ", username=" + username + ", password=" + password + '}';
     }
 
-    public Customer(long id, String isim, String soyisim, String email) {
-        this.id = id;
-        this.isim = isim;
-        this.soyisim = soyisim;
-        this.email = email;
-    }
 
    
     

@@ -5,7 +5,6 @@
         <group>
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/src/java/entity/Animal.java</file>
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/src/java/controller/AnimalBean.java</file>
-            <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/web/panel/AdminPanel/Hayvanlar/Hayvanlar.xhtml</file>
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/web/Template/Navbar.xhtml</file>
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/web/index.xhtml</file>
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/src/java/util/DBConnection.java</file>
@@ -13,12 +12,10 @@
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/src/java/controller/BaseBean.java</file>
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/src/java/dao/ProductDAO.java</file>
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/src/java/controller/ProductBean.java</file>
-            <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/web/panel/brand/brand.xhtml</file>
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/web/panel/AdminPanel/Admin.xhtml</file>
-            <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/src/java/controller/BrandBean.java</file>
+            <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/src/java/entity/Category.java</file>
             <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/src/java/entity/Brand.java</file>
-            <file>file:/C:/Users/HP/Desktop/Yeni%20klasör/JSFPetshopKatalog/src/java/dao/BrandDAO.java</file>
         </group>
     </open-files>
 </project-private>

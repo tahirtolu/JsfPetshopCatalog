@@ -4,21 +4,17 @@
  */
 package entity;
 
+import jakarta.persistence.Entity;
+
 /**
  *
  * @author User
  */
-public class Category {
-    private long id;
+@Entity
+public class Category extends AbstractEntity{
+ 
     private String kategoriIsmi;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getKategoriIsmi() {
         return kategoriIsmi;
@@ -31,9 +27,15 @@ public class Category {
     public Category() {
     }
 
-    public Category(long id, String kategoriIsmi) {
-        this.id = id;
+    public Category( String kategoriIsmi) {
+        
         this.kategoriIsmi = kategoriIsmi;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" + "kategoriIsmi=" + kategoriIsmi + '}';
+    }
+    
     
 }
