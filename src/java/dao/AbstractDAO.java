@@ -36,10 +36,10 @@ public abstract class AbstractDAO<T> {
         return query.getResultList();
     }
 
-    public List<T> findRange(int[] range) {
+    public List<T> findRange(int firstResult, int maxResults) {
         Query query = getEntityManager().createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e");
-        query.setMaxResults(range[1] - range[0] + 1);
-        query.setFirstResult(range[0]);
+        query.setMaxResults(maxResults);
+        query.setFirstResult(firstResult);
         return query.getResultList();
     }
     public int count() {

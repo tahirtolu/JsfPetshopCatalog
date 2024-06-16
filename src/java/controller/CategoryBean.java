@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import dao.CategoryDAO;
@@ -12,61 +8,90 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- *
- * @author Yavuz Selim
- */
-@Named(value= "CategoryBean")
+@Named(value = "categoryBean")
 @SessionScoped
 public class CategoryBean implements Serializable {
 
     private Category entity;
     @EJB
     private CategoryDAO dao;
-    private List<Category> List;
+    private List<Category> list;
+    private int pageNumber = 1; // Başlangıç sayfa numarası
+    private int pageSize = 10; // Sayfa başına maksimum kayıt sayısı
 
     public CategoryBean() {
-
+        entity = new Category();
     }
 
     public void create() {
-        dao.create(entity);
-        this.entity = new Category();
-    }
+    dao.create(entity);
+    entity = new Category(); // Yeni bir Category nesnesi oluştur
+    pageNumber = 1; // Sayfa numarasını sıfırla
+    updateList(); // Listeyi güncelle
+}
+
 
     public void update() {
         dao.update(entity);
-        this.entity = new Category();
+        entity = new Category();
     }
 
     public void delete() {
-        dao.delete(entity);
-        this.entity = new Category();
+    dao.delete(entity);
+    entity = new Category(); // Silinen kategori için yeni bir Category nesnesi oluştur
+    pageNumber = 1; // Sayfa numarasını sıfırla
+    updateList(); // Listeyi güncelle
+}
+
+
+    public void nextPage() {
+        pageNumber++;
+        updateList();
+    }
+
+    public void previousPage() {
+        if (pageNumber > 1) {
+            pageNumber--;
+            updateList();
+        }
+    }
+
+    private void updateList() {
+        list = dao.findCategoriesWithPagination(pageNumber, pageSize);
     }
 
     public Category getEntity() {
-
-        if (this.entity == null) {
-            this.entity = new Category();
-        }
         return entity;
-    }
-
-
-    public List<Category> getList() {
-
-       dao.findAll();
-
-        return List;
     }
 
     public void setEntity(Category entity) {
         this.entity = entity;
     }
 
-   
+    public List<Category> getList() {
+        if (list == null) {
+            updateList();
+        }
+        return list;
+    }
 
-    public void setList(List<Category> List) {
-        this.List = List;
+    public void setList(List<Category> list) {
+        this.list = list;
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

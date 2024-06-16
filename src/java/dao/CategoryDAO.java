@@ -10,6 +10,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -29,6 +30,14 @@ public class CategoryDAO extends AbstractDAO<Category> implements Serializable {
 
     public CategoryDAO() {
         super(Category.class);
+    }
+public List<Category> findCategoriesWithPagination(int pageNumber, int pageSize) {
+        int firstResult = (pageNumber - 1) * pageSize;
+        return findRange(firstResult, pageSize);
+    }
+
+    public int getCategoryCount() {
+        return count();
     }
 
 }
