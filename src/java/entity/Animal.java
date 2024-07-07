@@ -4,48 +4,41 @@
  */
 package entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 /**
  *
  * @author Muhsin21
  */
-public class Animal {
+@Entity
+public class Animal extends AbstractEntity {
 
-    private long id;
     private String hayvanTuru;
-    private String hayvanCinsi;
-    private String hayvanIrki;
     private String cinsiyet;
-    private float kilo;
     private int yas;
+    private String fileName;
+    private String filePath;
+    private String fileType;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
 
     public Animal() {
     }
 
-    public Animal(long id, String hayvanTuru, String hayvanCinsi, String hayvanIrki, String cinsiyet, int kilo, int yas) {
-        this.id = id;
+    public Animal(String hayvanTuru, String cinsiyet, int yas, String fileName, String filePath, String fileType) {
         this.hayvanTuru = hayvanTuru;
-        this.hayvanCinsi = hayvanCinsi;
-        this.hayvanIrki = hayvanIrki;
         this.cinsiyet = cinsiyet;
-        this.kilo = kilo;
         this.yas = yas;
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.fileType = fileType;
     }
 
-    public int getYas() {
-        return yas;
-    }
-
-    public void setYas(int yas) {
-        this.yas = yas;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    // getters and setters
 
     public String getHayvanTuru() {
         return hayvanTuru;
@@ -53,22 +46,6 @@ public class Animal {
 
     public void setHayvanTuru(String hayvanTuru) {
         this.hayvanTuru = hayvanTuru;
-    }
-
-    public String getHayvanCinsi() {
-        return hayvanCinsi;
-    }
-
-    public void setHayvanCinsi(String hayvanCinsi) {
-        this.hayvanCinsi = hayvanCinsi;
-    }
-
-    public String getHayvanIrki() {
-        return hayvanIrki;
-    }
-
-    public void setHayvanIrki(String hayvanIrki) {
-        this.hayvanIrki = hayvanIrki;
     }
 
     public String getCinsiyet() {
@@ -79,12 +56,43 @@ public class Animal {
         this.cinsiyet = cinsiyet;
     }
 
-    public float getKilo() {
-        return kilo;
+    public int getYas() {
+        return yas;
     }
 
-    public void setKilo(float kilo) {
-        this.kilo = kilo;
+    public void setYas(int yas) {
+        this.yas = yas;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
 }

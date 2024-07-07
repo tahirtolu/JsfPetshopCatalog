@@ -1,74 +1,97 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import dao.ProductDAO;
 import entity.Product;
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-@Named(value = "ProductBean")
+@Named(value = "productBean")
 @SessionScoped
 public class ProductBean implements Serializable {
+
     private Product entity;
+    @EJB
     private ProductDAO dao;
-    private List<Product> List;
-    
-    public void create(){
-       this.getDao().create(entity);
-       this.entity =new Product();
+    private List<Product> list;
+    private int pageNumber = 1; // Başlangıç sayfa numarası
+    private int pageSize = 10; // Sayfa başına maksimum kayıt sayısı
+
+    public ProductBean() {
+        entity = new Product();
     }
-    
+
+    public void create() {
+    dao.create(entity);
+    entity = new Product(); // Yeni bir Product nesnesi oluştur
+    pageNumber = 1; // Sayfa numarasını sıfırla
+    updateList(); // Listeyi güncelle
+}
+
+
     public void update() {
-        this.getDao().update(entity);
-        this.entity = new Product();
+        dao.update(entity);
+        entity = new Product();
     }
 
     public void delete() {
-        this.getDao().delete(entity);
-        this.entity = new Product();
+    dao.delete(entity);
+    entity = new Product(); // Silinen kategori için yeni bir Product nesnesi oluştur
+    pageNumber = 1; // Sayfa numarasını sıfırla
+    updateList(); // Listeyi güncelle
+}
+
+
+    public void nextPage() {
+        pageNumber++;
+        updateList();
+    }
+
+    public void previousPage() {
+        if (pageNumber > 1) {
+            pageNumber--;
+            updateList();
+        }
+    }
+
+    private void updateList() {
+        list = dao.findCategoriesWithPagination(pageNumber, pageSize);
     }
 
     public Product getEntity() {
-        
-        if (this.entity == null){
-            this.entity = new Product();
-        }
-        
         return entity;
-    }
-
-    public ProductDAO getDao() {
-        
-        if( this.dao == null){
-            this.dao = new ProductDAO();          
-        }
-        
-        return dao;
-    }
-
-    public List<Product> getList() {
-        
-        this.List =this.getDao().readList();
-        
-        return List;
     }
 
     public void setEntity(Product entity) {
         this.entity = entity;
     }
 
-    public void setDao(ProductDAO dao) {
-        this.dao = dao;
+    public List<Product> getList() {
+        if (list == null) {
+            updateList();
+        }
+        return list;
     }
 
-    public void setList(List<Product> List) {
-        this.List = List;
+    public void setList(List<Product> list) {
+        this.list = list;
     }
-    
-    
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 }

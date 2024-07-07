@@ -18,20 +18,20 @@ import java.util.Map;
 @ViewScoped
 public class NavigationBean implements Serializable {
 
-	private Map<String, String> pages;
-	
-	public NavigationBean() {
-		pages = new HashMap<>();
-	}
-	
-	public String module(String page) {
-		this.pages.put(page, "active");
-		return "/panel/module/"+page+"/index?faces-redirect=true";
-	}
+    private Map<String, String> pages;
 
-	public Map<String, String> getPages() {
-		return pages;
-	}
-	
-	
+    public NavigationBean() {
+        pages = new HashMap<>();
+    }
+
+    public String module(String page) {
+        pages.clear(); // Tüm sayfaları temizle
+        this.pages.put(page, "active"); // Yalnızca seçilen sayfayı aktif yap
+        return "/panel/module/" + page + "/index?faces-redirect=true";
+    }
+
+    public Map<String, String> getPages() {
+        return pages;
+    }
+
 }

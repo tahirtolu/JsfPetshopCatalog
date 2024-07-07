@@ -4,60 +4,48 @@
  */
 package entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 /**
  *
- * @author User
+ * @author Administrator
  */
-public class User {
-    private long id ;
-    private String isim ;
-    private String soyisim ;
-    private String sifre ;
-    private String eposta;
-    private String kullaniciAdi;
+@Entity
+@Table(name = "USER_TABLE")
+public class User extends AbstractEntity {
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setIsim(String isim) {
-        this.isim = isim;
-    }
-
-    public void setSoyisim(String soyisim) {
-        this.soyisim = soyisim;
-    }
-
-    public void setSifre(String sifre) {
-        this.sifre = sifre;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getIsim() {
-        return isim;
-    }
-
-    public String getSoyisim() {
-        return soyisim;
-    }
-
-    public String getSifre() {
-        return sifre;
-    }
-
-    public User(long id, String isim, String soyisim, String sifre, String eposta, String kullaniciAdi) {
-        this.id = id;
-        this.isim = isim;
-        this.soyisim = soyisim;
-        this.sifre = sifre;
-        this.kullaniciAdi = kullaniciAdi;
-        this.eposta = eposta;
-    }
+    private String nameSurname;
+    private String password;
 
     public User() {
     }
-    
+
+    public User(String nameSurname, String password) {
+
+        this.nameSurname = nameSurname;
+        this.password = password;
+    }
+
+    public String getNameSurname() {
+        return nameSurname;
+    }
+
+    public void setNameSurname(String nameSurname) {
+        this.nameSurname = nameSurname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "nameSurname=" + nameSurname + ", password=" + password + '}';
+    }
+
 }

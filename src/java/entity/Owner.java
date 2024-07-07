@@ -4,35 +4,39 @@
  */
 package entity;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Muhsin21
  */
-public class Owner {
-    private long id;
+@Entity
+public class Owner extends AbstractEntity{
+   
     private String isim;
     private String soyisim;
     private String telefonNumarasi;
     private String eMail;
 
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Set<Animal> animals = new HashSet<>();
+
     public Owner() {
     }
 
-    public Owner(long id, String isim, String soyisim, String telefonNumarasi, String eMail) {
-        this.id = id;
+    public Owner( String isim, String soyisim, String telefonNumarasi, String eMail) {
         this.isim = isim;
         this.soyisim = soyisim;
         this.telefonNumarasi = telefonNumarasi;
         this.eMail = eMail;
     }
 
-    public long getId() {
-        return id;
-    }
+    // getters and setters
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getIsim() {
         return isim;
@@ -65,5 +69,22 @@ public class Owner {
     public void seteMail(String eMail) {
         this.eMail = eMail;
     }
-  
+
+    public Set<Animal> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(Set<Animal> animals) {
+        this.animals = animals;
+    }
+
+    public void addAnimal(Animal animal) {
+        animals.add(animal);
+        animal.setOwner(this);
+    }
+
+    public void removeAnimal(Animal animal) {
+        animals.remove(animal);
+        animal.setOwner(null);
+    }
 }

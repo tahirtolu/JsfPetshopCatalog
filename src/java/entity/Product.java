@@ -4,39 +4,28 @@
  */
 package entity;
 
-import java.io.Serializable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
  * @author Yavuz Selim
  */
-public class Product implements Serializable {
+@Entity
+public class Product extends AbstractEntity {
 
-    private long id;
     private String isim;
-    private String kategori;
     private String marka;
 
-    public Product() {
-    }
-
-    public Product(long id, String isim, String kategori, String marka) {
-        this.id = id;
-        this.isim = isim;
-        this.kategori = kategori;
-        this.marka = marka;
-    }
-
-    
-    
-    
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    @ManyToMany
+    @JoinTable(name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories = new HashSet<>();
 
     public String getIsim() {
         return isim;
@@ -46,14 +35,6 @@ public class Product implements Serializable {
         this.isim = isim;
     }
 
-    public String getKategori() {
-        return kategori;
-    }
-
-    public void setKategori(String kategori) {
-        this.kategori = kategori;
-    }
-
     public String getMarka() {
         return marka;
     }
@@ -61,6 +42,21 @@ public class Product implements Serializable {
     public void setMarka(String marka) {
         this.marka = marka;
     }
-    
 
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + getId() +
+                ", isim='" + isim + '\'' +
+                ", marka='" + marka + '\'' +
+                '}';
+    }
 }
