@@ -1,18 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-/**
- *
- * @author User
- */
 @Entity
 public class Category extends AbstractEntity {
 
@@ -42,16 +35,32 @@ public class Category extends AbstractEntity {
         product.getCategories().add(this);
     }
 
-    public void removeProduct(Product product) {
-        products.remove(product);
-        product.getCategories().remove(this);
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.kategoriIsmi);
+        hash = 17 * hash + Objects.hashCode(this.products);
+        return hash;
     }
 
-  
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Category category = (Category) obj;
+        return Objects.equals(kategoriIsmi, category.kategoriIsmi) &&
+                Objects.equals(products, category.products);
+    }
+
     @Override
     public String toString() {
         return "Category{" +
-                "kategoriIsmi='" + kategoriIsmi + '\'' +
+                "id=" + getId() +
+                ", kategoriIsmi='" + kategoriIsmi + '\'' +
                 '}';
     }
 }

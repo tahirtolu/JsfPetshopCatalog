@@ -9,28 +9,24 @@
         <h:form>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <h:link class="navbar-brand" outcome="/index" value="ANASAYFA" />
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <h:commandButton styleClass="nav-link #{nb.pages.get('category')}" action="#{nb.module('category')}" value="Category" />
+                                <h:commandButton styleClass="nav-link #{vnb.pages.get('category')}" action="#{vnb.module('category')}" value="Category" />
                             </li>
                             <li class="nav-item">
-                                <h:commandButton styleClass="nav-link #{nb.pages.get('product')}" action="#{nb.module('product')}" value="Product" />
+                                <h:commandButton styleClass="nav-link #{vnb.pages.get('product')}" action="#{vnb.module('product')}" value="Product" />
                             </li>
                             <li class="nav-item">
-                                <h:commandButton styleClass="nav-link #{nb.pages.get('fileupload')}" action="#{nb.module('fileupload')}" value="FileUpload" />
+                                <h:commandButton styleClass="nav-link #{vnb.pages.get('favorites')}" action="#{vnb.module('favorites')}" value="Favorites" />
                             </li>
-                             <li class="nav-item">
-                                <h:commandButton styleClass="nav-link #{nb.pages.get('animal')}" action="#{nb.module('animal')}" value="Animal" />
+                            <li class="nav-item">
+                                <h:commandButton styleClass="nav-link #{vnb.pages.get('animal')}" action="#{vnb.module('animal')}" value="Animal" />
                             </li>
-                           
-
-
-
                         </ul>
                     </div>
                 </div>

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/visitorPanel/template/visitorTemplate.xhtml">
+
+    <ui:define name="table">
+        <h:form id="tableForm">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Tür</td>
+                        <td>Cinsiyet</td>
+                        <td>Yaş</td>
+                        <td>FileName</td>
+                        <td>FilePath</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ui:repeat value="#{animalBean.list}" var="c">
+                        <tr>
+                            <td>#{c.id}</td>
+                            <td>
+                                <h:commandLink action="#{animalBean.setEntity(c)}" value="#{c.hayvanTuru}">
+                                    <f:ajax render="formPanel" />
+                                </h:commandLink>
+                            </td>
+                            <td>#{c.cinsiyet}</td>
+                            <td>#{c.yas}</td>
+                            <td>#{c.fileName}</td>
+                            <td>#{c.filePath}</td>
+                        </tr>
+                    </ui:repeat>
+                </tbody>
+            </table>
+            <h:form>
+                <h:commandButton value="Previous Page" action="#{animalBean.previousPage}" rendered="#{animalBean.pageNumber > 1}">
+                    <f:ajax render="tableForm" />
+                </h:commandButton>
+                <h:outputText value=" Page #{animalBean.pageNumber} " />
+                <h:commandButton value="Next Page" action="#{animalBean.nextPage}" rendered="#{animalBean.list.size() == animalBean.pageSize}">
+                    <f:ajax render="tableForm" />
+                </h:commandButton>
+            </h:form>
+        </h:form>
+    </ui:define>
+
+  
+</ui:composition>

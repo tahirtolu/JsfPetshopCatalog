@@ -6,7 +6,6 @@ package controller;
 
 import entity.User;
 import jakarta.inject.Named;
-import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -31,6 +30,11 @@ public class LoginControllerBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hatali kullanıcı adı veya şifre!"));
             return "/login";
         }
+    }
+
+    public String logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login?faces-redirect=true";
     }
 
     public User getUser() {

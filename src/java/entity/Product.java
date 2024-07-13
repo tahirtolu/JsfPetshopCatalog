@@ -1,31 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
-import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-/**
- *
- * @author Yavuz Selim
- */
 @Entity
 public class Product extends AbstractEntity {
 
     private String isim;
     private String marka;
 
-    @ManyToMany
-    @JoinTable(name = "product_category",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Category> categories;
 
     public String getIsim() {
         return isim;
@@ -49,6 +37,29 @@ public class Product extends AbstractEntity {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.isim);
+        hash = 17 * hash + Objects.hashCode(this.marka);
+        hash = 17 * hash + Objects.hashCode(this.categories);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Product product = (Product) obj;
+        return Objects.equals(isim, product.isim) &&
+                Objects.equals(marka, product.marka) &&
+                Objects.equals(categories, product.categories);
     }
 
     @Override
