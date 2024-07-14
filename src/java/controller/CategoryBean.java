@@ -30,7 +30,6 @@ public class CategoryBean implements Serializable {
         dao.create(entity);
         entity = new Category(); // Yeni bir Category nesnesi oluştur
         pageNumber = 1; // Sayfa numarasını sıfırla
-        updateList(); // Listeyi güncelle
     }
 
     public void update() {

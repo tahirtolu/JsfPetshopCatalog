@@ -1,6 +1,7 @@
 package controller;
 
 import dao.ProductDAO;
+import entity.Category;
 import entity.Product;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
@@ -19,6 +20,8 @@ public class ProductBean implements Serializable {
     private ProductDAO dao;
 
     private List<Product> list;
+    
+    private List<Category> categories;
     private int pageNumber = 1; // Başlangıç sayfa numarası
     private int pageSize = 10; // Sayfa başına maksimum kayıt sayısı
 
@@ -27,10 +30,10 @@ public class ProductBean implements Serializable {
     }
 
     public void create() {
+        System.out.println(entity.toString());
         dao.create(entity);
+
         entity = new Product(); // Yeni bir Product nesnesi oluştur
-        pageNumber = 1; // Sayfa numarasını sıfırla
-        updateList(); // Listeyi güncelle
     }
 
     public void update() {
@@ -95,4 +98,14 @@ public class ProductBean implements Serializable {
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+    
+    
 }

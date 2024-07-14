@@ -9,12 +9,11 @@
     <ui:define name="table">
         <h:form>
             <table class="table table-striped">
-
                 <thead>
                     <tr>
                         <td>ID</td>
                         <td>İsim</td>
-                        <td>Kategori</td>
+                        <td>Kategoriler</td>
                         <td>Marka</td>
                     </tr>
                 </thead>
@@ -22,17 +21,18 @@
                     <ui:repeat value="#{productBean.list}" var="c">
                         <tr>
                             <td>#{c.id}</td>
-
                             <td>
                                 <h:commandLink styleClass="" action="#{productBean.setEntity(c)}" value="#{c.isim}" />
                             </td>
-                            <td>#{c.kategori}</td>
+                            <td>
+                                <ui:repeat value="#{c.categories}" var="category">
+                                    #{category.kategoriIsmi}<br />
+                                </ui:repeat>
+                            </td>
                             <td>#{c.marka}</td>
                         </tr>
                     </ui:repeat>
-
                 </tbody>
-
             </table>
             <h:form>
                 <h:commandButton value="Previous Page" action="#{productBean.previousPage}" rendered="#{productBean.pageNumber > 1}" />
@@ -43,14 +43,16 @@
     </ui:define>
 
     <ui:define name="form">
-        <h:form >
+        <h:form>
             İsim:
             <h:inputText styleClass="form-control" value="#{productBean.entity.isim}" /><br />
-            Kategori:
-            <h:inputText styleClass="form-control" value="#{productBean.entity.kategori}" /><br />
+            Kategoriler:
+            <h:selectManyListbox  styleClass="form-select"  converter="categoryConverter" value="#{productBean.entity.categories}">
+                <f:selectItems value="#{categoryBean.list}" var="c" itemValue="#{c}" itemLabel="#{c.kategoriIsmi}" />
+            </h:selectManyListbox >
+            <br />
             Marka:
             <h:inputText styleClass="form-control" value="#{productBean.entity.marka}" /><br />
-
             <div class="btn-product">
                 <h:commandButton styleClass="btn btn-success" rendered="#{productBean.entity.id == null}" action="#{productBean.create}" value="Create" />
                 <h:commandButton styleClass="btn btn-info" rendered="#{productBean.entity.id != null}" action="#{productBean.update}" value="Update" />
@@ -58,4 +60,5 @@
             </div>
         </h:form>
     </ui:define>
+
 </ui:composition>
