@@ -1,7 +1,7 @@
 package controller;
 
-import dao.CategoryDAO;
-import entity.Category;
+import dao.BrandDAO;
+import entity.Brand;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
@@ -11,24 +11,24 @@ import java.util.List;
 
 @Named
 @SessionScoped
-public class CategoryBean implements Serializable {
+public class BrandBean implements Serializable {
 
-    private Category entity;
+    private Brand entity;
 
     @EJB
-    private CategoryDAO dao;
+    private BrandDAO dao;
 
-    private List<Category> list;
+    private List<Brand> list;
     private int pageNumber = 1; // Başlangıç sayfa numarası
     private int pageSize = 10; // Sayfa başına maksimum kayıt sayısı
 
-    public CategoryBean() {
-        entity = new Category();
+    public BrandBean() {
+        entity = new Brand();
     }
 
     public void create() {
         dao.create(entity);
-        entity = new Category(); // Yeni bir Category nesnesi oluştur
+        entity = new Brand(); // Yeni bir Brand nesnesi oluştur
         pageNumber = 1; // Sayfa numarasını sıfırla
         updateList(); // Listeyi güncelle
 
@@ -36,12 +36,12 @@ public class CategoryBean implements Serializable {
 
     public void update() {
         dao.update(entity);
-        entity = new Category();
+        entity = new Brand();
     }
 
     public void delete() {
         dao.delete(entity);
-        entity = new Category(); // Silinen kategori için yeni bir Category nesnesi oluştur
+        entity = new Brand(); // Silinen kategori için yeni bir Brand nesnesi oluştur
         pageNumber = 1; // Sayfa numarasını sıfırla
         updateList(); // Listeyi güncelle
     }
@@ -62,22 +62,22 @@ public class CategoryBean implements Serializable {
         list = dao.findCategoriesWithPagination(pageNumber, pageSize);
     }
 
-    public Category getEntity() {
+    public Brand getEntity() {
         return entity;
     }
 
-    public void setEntity(Category entity) {
+    public void setEntity(Brand entity) {
         this.entity = entity;
     }
 
-    public List<Category> getList() {
+    public List<Brand> getList() {
         if (list == null) {
             updateList();
         }
         return list;
     }
 
-    public void setList(List<Category> list) {
+    public void setList(List<Brand> list) {
         this.list = list;
     }
 

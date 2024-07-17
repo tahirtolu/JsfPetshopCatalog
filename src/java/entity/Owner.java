@@ -15,8 +15,8 @@ import java.util.Set;
  * @author Muhsin21
  */
 @Entity
-public class Owner extends AbstractEntity{
-   
+public class Owner extends AbstractEntity {
+
     private String isim;
     private String soyisim;
     private String telefonNumarasi;
@@ -28,15 +28,12 @@ public class Owner extends AbstractEntity{
     public Owner() {
     }
 
-    public Owner( String isim, String soyisim, String telefonNumarasi, String eMail) {
+    public Owner(String isim, String soyisim, String telefonNumarasi, String eMail) {
         this.isim = isim;
         this.soyisim = soyisim;
         this.telefonNumarasi = telefonNumarasi;
         this.eMail = eMail;
     }
-
-    // getters and setters
-
 
     public String getIsim() {
         return isim;

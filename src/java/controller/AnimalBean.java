@@ -2,7 +2,6 @@ package controller;
 
 import dao.AnimalDAO;
 import entity.Animal;
-import entity.FileUpload;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
@@ -27,9 +26,9 @@ public class AnimalBean implements Serializable {
     private int pageNumber = 1; // Başlangıç sayfa numarası
     private int pageSize = 10; // Sayfa başına maksimum kayıt sayısı
 
-    
     private Part file;
     private List<Animal> uploadedFiles;
+    
 
     public Part getFile() {
         return file;
@@ -54,25 +53,20 @@ public class AnimalBean implements Serializable {
 
             // Dosyayı belirtilen dosya yoluna kaydet
             saveFileToDisk(file, filePath);
-            
 
             // Veritabanına dosya bilgilerini kaydet
-            
-            getEntity().setHayvanTuru(getEntity().getHayvanTuru());
-            getEntity().setYas(getEntity().getYas());
-            getEntity().setCinsiyet(getEntity().getCinsiyet());
             getEntity().setFileName(fileName);
             getEntity().setFilePath(filePath);
             getEntity().setFileType(fileType);
-           
-            
+
             dao.create(getEntity());
 
             FacesMessage message = new FacesMessage("Dosya başarıyla yüklendi!");
             FacesContext.getCurrentInstance().addMessage(null, message);
 
             // Yüklenmiş dosyalar listesini yenile
-            uploadedFiles = dao.findAll();
+            updateList();
+            entity = new Animal(); // Yeni bir Animal nesnesi oluştur
         } catch (IOException e) {
             FacesMessage message = new FacesMessage("Dosya yüklenirken hata oluştu!");
             FacesContext.getCurrentInstance().addMessage(null, message);
@@ -98,30 +92,30 @@ public class AnimalBean implements Serializable {
         }
         return null;
     }
+
     public AnimalBean() {
         entity = new Animal();
     }
 
     public void create() {
-    dao.create(entity);
-    entity = new Animal(); // Yeni bir Animal nesnesi oluştur
-    pageNumber = 1; // Sayfa numarasını sıfırla
-    updateList(); // Listeyi güncelle
-}
-
+        dao.create(entity);
+        entity = new Animal(); // Yeni bir Animal nesnesi oluştur
+        pageNumber = 1; // Sayfa numarasını sıfırla
+        updateList(); // Listeyi güncelle
+    }
 
     public void update() {
         dao.update(entity);
         entity = new Animal();
+        updateList(); // Listeyi güncelle
     }
 
     public void delete() {
-    dao.delete(entity);
-    entity = new Animal(); // Silinen kategori için yeni bir Animal nesnesi oluştur
-    pageNumber = 1; // Sayfa numarasını sıfırla
-    updateList(); // Listeyi güncelle
-}
-
+        dao.delete(entity);
+        entity = new Animal(); // Silinen kategori için yeni bir Animal nesnesi oluştur
+        pageNumber = 1; // Sayfa numarasını sıfırla
+        updateList(); // Listeyi güncelle
+    }
 
     public void nextPage() {
         pageNumber++;
@@ -140,8 +134,8 @@ public class AnimalBean implements Serializable {
     }
 
     public Animal getEntity() {
-        if(entity == null){
-        entity = new Animal();
+        if (entity == null) {
+            entity = new Animal();
         }
         return entity;
     }
@@ -152,7 +146,7 @@ public class AnimalBean implements Serializable {
 
     public List<Animal> getList() {
         if (list == null) {
-            list=dao.findAll();
+            list = dao.findAll();
         }
         return list;
     }
