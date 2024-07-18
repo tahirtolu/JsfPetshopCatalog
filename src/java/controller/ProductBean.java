@@ -1,16 +1,19 @@
 package controller;
 
 import dao.ProductDAO;
+import dao.CategoryDAO;
+import dao.FavoriteDAO;
 import entity.Category;
+import entity.Favorite;
 import entity.Product;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
-
 import java.io.Serializable;
 import java.util.List;
 
-@Named(value = "productBean")
+@Named
 @SessionScoped
 public class ProductBean implements Serializable {
 
@@ -19,33 +22,43 @@ public class ProductBean implements Serializable {
     @EJB
     private ProductDAO dao;
 
+    @EJB
+    private CategoryDAO categoryDAO;
+
+    @EJB
+    private FavoriteDAO favoriteDAO;
+
     private List<Product> list;
-    
     private List<Category> categories;
-    private int pageNumber = 1; // Başlangıç sayfa numarası
-    private int pageSize = 10; // Sayfa başına maksimum kayıt sayısı
+    private int pageNumber = 1;
+    private int pageSize = 10;
 
     public ProductBean() {
         entity = new Product();
     }
 
-    public void create() {
-        System.out.println(entity.toString());
-        dao.create(entity);
+    public void init() {
+        categories = categoryDAO.getAllCategories();
+        updateList();
+    }
 
-        entity = new Product(); // Yeni bir Product nesnesi oluştur
+    public void create() {
+        dao.create(entity);
+        entity = new Product();
+        updateList();
     }
 
     public void update() {
         dao.update(entity);
         entity = new Product();
+        updateList();
     }
 
     public void delete() {
         dao.delete(entity);
-        entity = new Product(); // Silinen kategori için yeni bir Product nesnesi oluştur
-        pageNumber = 1; // Sayfa numarasını sıfırla
-        updateList(); // Listeyi güncelle
+        entity = new Product();
+        pageNumber = 1;
+        updateList();
     }
 
     public void nextPage() {
@@ -60,8 +73,19 @@ public class ProductBean implements Serializable {
         }
     }
 
+    public void addToFavorites(Long productId) {
+        Product product = dao.findById(productId);
+        if (product != null) {
+            Favorite favorite = new Favorite(product);
+            favoriteDAO.create(favorite);
+            System.out.println("Ürün favorilere eklendi: " + productId);
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("productForm");
+        }
+    }
+
     private void updateList() {
         list = dao.findCategoriesWithPagination(pageNumber, pageSize);
+        categories = categoryDAO.getAllCategories();
     }
 
     public Product getEntity() {
@@ -106,6 +130,5 @@ public class ProductBean implements Serializable {
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
-    
     
 }

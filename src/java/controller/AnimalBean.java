@@ -2,18 +2,24 @@ package controller;
 
 import dao.AnimalDAO;
 import entity.Animal;
+import entity.Owner;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import jakarta.servlet.http.Part;
+
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import util.Connector;
+import java.sql.Connection;
 
 @Named(value = "animalBean")
 @SessionScoped
@@ -26,82 +32,64 @@ public class AnimalBean implements Serializable {
     private int pageNumber = 1; // Başlangıç sayfa numarası
     private int pageSize = 10; // Sayfa başına maksimum kayıt sayısı
 
-    private Part file;
-    private List<Animal> uploadedFiles;
-    
+    private Connector connector;// Veritabanı bağlantısını yönetmek için 
+    private Connection connection;
 
-    public Part getFile() {
-        return file;
+    private Long ownerId; // Owner'ın ID'si
+
+    private Part doc;//HTTP isteği içindeki dosya yüklemelerini temsil eder.
+
+    public AnimalBean() {
+        entity = new Animal();
+    }
+    private final String uploadTo = "C:\\upload\\";//Yüklenen dosyaların saklanacağı dizin yolunu belirtir.
+
+    public String getUploadTo() {
+        return uploadTo;
     }
 
-    public void setFile(Part file) {
-        this.file = file;
-    }
-
-    public List<Animal> getUploadedFiles() {
-        if (uploadedFiles == null) {
-            uploadedFiles = dao.findAll();
-        }
-        return uploadedFiles;
-    }
-
-    public void upload() {
+    public void upload() {//kullanıcı tarafından yüklenen dosyayı işler
         try {
-            String fileName = getFileName(file);
-            String filePath = "C:/uploadedFiles/" + fileName; // Dosya yolu
-            String fileType = file.getContentType();
+            InputStream input = doc.getInputStream();
+            File file = new File("C:\\upload\\" + doc.getSubmittedFileName());
+            Files.copy(input, file.toPath());
 
-            // Dosyayı belirtilen dosya yoluna kaydet
-            saveFileToDisk(file, filePath);
+            entity.setHayvanTuru(entity.getHayvanTuru());
+            entity.setCinsiyet(entity.getCinsiyet());
+            entity.setYas(entity.getYas());
 
-            // Veritabanına dosya bilgilerini kaydet
-            getEntity().setFileName(fileName);
-            getEntity().setFilePath(filePath);
-            getEntity().setFileType(fileType);
+            Owner owner = dao.findOwnerById(ownerId);
+            entity.setOwner(owner);
 
-            dao.create(getEntity());
+            entity.setFilePath(file.getParent());
+            entity.setFileName(file.getName());
+            entity.setFileType(doc.getContentType());
+            dao.create(entity);
 
             FacesMessage message = new FacesMessage("Dosya başarıyla yüklendi!");
             FacesContext.getCurrentInstance().addMessage(null, message);
 
-            // Yüklenmiş dosyalar listesini yenile
             updateList();
             entity = new Animal(); // Yeni bir Animal nesnesi oluştur
+
         } catch (IOException e) {
             FacesMessage message = new FacesMessage("Dosya yüklenirken hata oluştu!");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
 
-    private void saveFileToDisk(Part part, String filePath) throws IOException {
-        Path file = Paths.get(filePath);
-        Files.createDirectories(file.getParent());
-
-        try (var input = part.getInputStream()) {
-            Files.copy(input, file);
-        }
-    }
-
-    private String getFileName(Part part) {
-        String contentDisposition = part.getHeader("content-disposition");
-        String[] elements = contentDisposition.split(";");
-        for (String element : elements) {
-            if (element.trim().startsWith("filename")) {
-                return element.substring(element.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return null;
-    }
-
-    public AnimalBean() {
-        entity = new Animal();
-    }
-
     public void create() {
         dao.create(entity);
         entity = new Animal(); // Yeni bir Animal nesnesi oluştur
-        pageNumber = 1; // Sayfa numarasını sıfırla
+        int totalItems = dao.getCategoryCount();
+        int lastPageNumber = (totalItems - 1) / pageSize + 1;
+
+        if (pageNumber > lastPageNumber) {
+            pageNumber = lastPageNumber;
+        }
+
         updateList(); // Listeyi güncelle
+
     }
 
     public void update() {
@@ -110,8 +98,8 @@ public class AnimalBean implements Serializable {
         updateList(); // Listeyi güncelle
     }
 
-    public void delete() {
-        dao.delete(entity);
+    public void delete(Animal animal) {
+        dao.delete(animal);
         entity = new Animal(); // Silinen kategori için yeni bir Animal nesnesi oluştur
         pageNumber = 1; // Sayfa numarasını sıfırla
         updateList(); // Listeyi güncelle
@@ -169,5 +157,44 @@ public class AnimalBean implements Serializable {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public Connector getConnector() {
+        if (this.connector == null) {
+            this.connector = new Connector();
+        }
+        return connector;
+    }
+
+    public void setConnector(Connector connector) {
+        this.connector = connector;
+    }
+
+    public Connection getConnection() {
+        if (this.connection == null) {
+            this.connection = this.getConnector().connect();
+
+        }
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    public Part getDoc() {
+        return doc;
+    }
+
+    public void setDoc(Part doc) {
+        this.doc = doc;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 }

@@ -3,20 +3,48 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Login</title>
-       
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <style>
+            .login-form {
+                max-width: 400px;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                background-color: #f9f9f9;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+            .login-form h2 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .form-group {
+                margin-bottom: 15px;
+            }
+            .form-control {
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+            }
+        </style>
     </h:head>
     <h:body>
-        <h:form id="loginForm">
-            <h:panelGrid columns="2">
-                <h:outputLabel for="nameSurname" value="Name Surname:" />
-                <h:inputText id="nameSurname" value="#{loginControllerBean.user.nameSurname}" />
-
-                <h:outputLabel for="password" value="Password:" />
-                <h:inputSecret id="password" value="#{loginControllerBean.user.password}" />
-
-                <h:commandButton  value="Login" action="#{loginControllerBean.login()}"   />
-                
-            </h:panelGrid>
-        </h:form>
+        <div class="login-form">
+            <h2>Login</h2>
+            <h:form id="loginForm">
+                <div class="form-group">
+                    <h:outputLabel for="nameSurname" value="Name Surname:" class="form-label" />
+                    <h:inputText id="nameSurname" value="#{loginControllerBean.user.nameSurname}" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="password" value="Password:" class="form-label" />
+                    <h:inputSecret id="password" value="#{loginControllerBean.user.password}" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <h:commandButton value="Login" action="#{loginControllerBean.login()}" class="btn btn-primary" />
+                </div>
+            </h:form>
+        </div>
     </h:body>
 </html>

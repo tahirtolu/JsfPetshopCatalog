@@ -4,10 +4,25 @@
     <h:head>
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
         <title>Facelet Title</title>
+        <style>
+            .navbar-custom {
+                background-color: #4CAF50; /* Yeşil arka plan */
+            }
+            .navbar-custom .navbar-brand, 
+            .navbar-custom .nav-link {
+                color: #000000
+            }
+            .navbar-custom .nav-link:hover {
+                color: #FFD700; /* Altın rengi hover */
+            }
+            .navbar-custom .navbar-toggler {
+                border-color: #2C3E50; /* Koyu gri çerçeveli buton */
+            }
+        </style>
     </h:head>
     <h:body>
         <h:form>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <nav class="navbar navbar-expand-lg navbar-custom">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">Navbar</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,26 +37,17 @@
                                 <h:commandButton styleClass="nav-link #{nb.pages.get('product')}" action="#{nb.module('product')}" value="Product" />
                             </li>
                             <li class="nav-item">
-                                <h:commandButton styleClass="nav-link #{nb.pages.get('fileupload')}" action="#{nb.module('fileupload')}" value="FileUpload" />
-                            </li>
-                             <li class="nav-item">
                                 <h:commandButton styleClass="nav-link #{nb.pages.get('animal')}" action="#{nb.module('animal')}" value="Animal" />
                             </li>
-                             <li class="nav-item">
+                            <li class="nav-item">
                                 <h:commandButton styleClass="nav-link #{nb.pages.get('owner')}" action="#{nb.module('owner')}" value="Owner" />
                             </li>
-                             <li class="nav-item">
+                            <li class="nav-item">
                                 <h:commandButton styleClass="nav-link #{nb.pages.get('brand')}" action="#{nb.module('brand')}" value="Brand" />
                             </li>
-                                       <li class="nav-item">
+                            <li class="nav-item">
                                 <h:commandButton styleClass="nav-link #{nb.pages.get('privilege')}" action="#{nb.module('privilege')}" value="Privilege" />
                             </li>
-                           
-
-                           
-
-
-
                         </ul>
                     </div>
                 </div>

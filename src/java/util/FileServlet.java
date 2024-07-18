@@ -19,19 +19,8 @@ public class FileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestedImage = req.getPathInfo().substring(1); // Dosya adını alır
-
-        // Dosyanın yüklenmiş olduğu dizini kullanın
-        String filePath = "C:/uploadedFiles/" + requestedImage;
-        File imageFile = new File(filePath);
-
-        // Dosyanın var olup olmadığını kontrol edin
-        if (imageFile.exists()) {
-            // Resim dosyasını yanıt olarak gönderin
-            resp.setContentType(getServletContext().getMimeType(imageFile.getName()));
-            Files.copy(imageFile.toPath(), resp.getOutputStream());
-        } else {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND); // Dosya bulunamazsa hata döndürün
-        }
+        String file = req.getPathInfo();
+        File f=new File(animalBean.getUploadTo()+file);
+        Files.copy(f.toPath(), resp.getOutputStream());
     }
 }

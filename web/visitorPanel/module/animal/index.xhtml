@@ -8,14 +8,14 @@
 
     <ui:define name="table">
         <h:form id="tableForm">
-            <table class="table table-striped">
-                <thead>
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
                     <tr>
-                        <td>ID</td>
-                        <td>Tür</td>
-                        <td>Cinsiyet</td>
-                        <td>Yaş</td>
-                        <td>Resim</td>
+                        <th scope="col">ID</th>
+                        <th scope="col">Tür</th>
+                        <th scope="col">Cinsiyet</th>
+                        <th scope="col">Yaş</th>
+                        <th scope="col">Resim</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,7 +23,7 @@
                         <tr>
                             <td>#{c.id}</td>
                             <td>
-                                <h:commandLink action="#{animalBean.setEntity(c)}" value="#{c.hayvanTuru}">
+                                <h:commandLink styleClass="text-primary" action="#{animalBean.setEntity(c)}" value="#{c.hayvanTuru}">
                                     <f:ajax render="formPanel" />
                                 </h:commandLink>
                             </td>
@@ -31,20 +31,22 @@
                             <td>#{c.yas}</td>
                             <td>
                                 <h:panelGroup layout="block" rendered="#{c.fileType.contains('image')}">
-                                <h:graphicImage width="150" value="/image/#{c.fileName}"  />
+                                    <h:graphicImage width="150" value="/image/#{c.fileName}" />
                                 </h:panelGroup>
                             </td>
                         </tr>
                     </ui:repeat>
                 </tbody>
             </table>
-            <h:commandButton value="Previous Page" action="#{animalBean.previousPage}" rendered="#{animalBean.pageNumber > 1}">
-                <f:ajax render="tableForm" />
-            </h:commandButton>
-            <h:outputText value=" Page #{animalBean.pageNumber} " />
-            <h:commandButton value="Next Page" action="#{animalBean.nextPage}" rendered="#{animalBean.list.size() == animalBean.pageSize}">
-                <f:ajax render="tableForm" />
-            </h:commandButton>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <h:commandButton styleClass="btn btn-outline-primary" value="Previous Page" action="#{animalBean.previousPage}" rendered="#{animalBean.pageNumber > 1}">
+                    <f:ajax render="tableForm" />
+                </h:commandButton>
+                <h:outputText value=" Page #{animalBean.pageNumber} " styleClass="font-weight-bold" />
+                <h:commandButton styleClass="btn btn-outline-primary" value="Next Page" action="#{animalBean.nextPage}" rendered="#{animalBean.list.size() == animalBean.pageSize}">
+                    <f:ajax render="tableForm" />
+                </h:commandButton>
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>

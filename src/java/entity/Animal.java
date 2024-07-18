@@ -4,6 +4,7 @@
  */
 package entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -22,7 +23,7 @@ public class Animal extends AbstractEntity {
     private String filePath;
     private String fileType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
@@ -39,7 +40,6 @@ public class Animal extends AbstractEntity {
     }
 
     // getters and setters
-
     public String getHayvanTuru() {
         return hayvanTuru;
     }

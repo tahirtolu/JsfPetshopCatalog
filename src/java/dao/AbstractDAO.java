@@ -1,19 +1,25 @@
+// AbstractDAO.java
 package dao;
 
-
+import jakarta.ejb.Local;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class AbstractDAO<T> {
+@Local
+@Stateless
+public abstract class AbstractDAO<T> implements Serializable {
 
     private Class<T> entityClass;
+
+    public AbstractDAO() {
+    }
 
     public AbstractDAO(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-
-    protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
         getEntityManager().persist(entity);
@@ -32,18 +38,27 @@ public abstract class AbstractDAO<T> {
     }
 
     public List<T> findAll() {
-        Query query = getEntityManager().createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e");
-        return query.getResultList();
+        return getEntityManager().createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e", entityClass).getResultList();
     }
 
     public List<T> findRange(int firstResult, int maxResults) {
-        Query query = getEntityManager().createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e");
-        query.setMaxResults(maxResults);
-        query.setFirstResult(firstResult);
-        return query.getResultList();
+        return getEntityManager()
+                .createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e", entityClass)
+                .setFirstResult(firstResult)
+                .setMaxResults(maxResults)
+                .getResultList();
     }
+
     public int count() {
-        Query query = getEntityManager().createQuery("SELECT COUNT(e) FROM " + entityClass.getSimpleName() + " e");
-        return ((Long) query.getSingleResult()).intValue();
+        return ((Long) getEntityManager()
+                .createQuery("SELECT COUNT(e) FROM " + entityClass.getSimpleName() + " e")
+                .getSingleResult())
+                .intValue();
     }
+    
+    public T findById(Object id) {
+        return getEntityManager().find(entityClass, id);
+    }
+
+    protected abstract EntityManager getEntityManager();
 }

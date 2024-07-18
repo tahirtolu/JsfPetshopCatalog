@@ -31,12 +31,12 @@ public class CategoryBean implements Serializable {
         entity = new Category(); // Yeni bir Category nesnesi oluştur
         pageNumber = 1; // Sayfa numarasını sıfırla
         updateList(); // Listeyi güncelle
-
     }
 
     public void update() {
         dao.update(entity);
         entity = new Category();
+        updateList(); // Listeyi güncelle
     }
 
     public void delete() {
